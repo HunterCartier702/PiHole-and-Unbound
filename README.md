@@ -23,7 +23,7 @@ After running the command it will start the install script and run you through t
 ```shell
 $ sudo pihole setpassword <password>
 ```
-After setting your password you can now visit server_IP/admin to login for the first time and view the dashboard.
+After setting your password you can now visit "server_IP/admin" to login for the first time and view the dashboard in your preferred browser.
 <p align="center"><img alt="DNS" src="Pi/login.png" height="auto" width="800"></p>
 <p align="center"><img alt="DNS" src="Pi/pidashboard.png" height="auto" width="800"></p>
 
@@ -43,7 +43,7 @@ Installing Unbound adds a bit more complexity, but is well worth it especially s
 
 [Unbound Install Docs](https://docs.pi-hole.net/guides/dns/unbound/)
 
-This is the playbook I used. It might not be very portable, but it works perfect for my small network. 
+This is the playbook I used. It might not be very portable, but it works perfect for my small network. In my ansible.cfg file I have "become=true" so that this playbook runs as root. 
 ```yaml
 ---
 - name: Install unbound
@@ -54,7 +54,6 @@ This is the playbook I used. It might not be very portable, but it works perfect
         name: 
           - unbound
           - unbound-anchor
-          #- dns-root-data
         state: latest
         update_cache: true
       register: output
@@ -68,12 +67,12 @@ This is the playbook I used. It might not be very portable, but it works perfect
         url: https://www.internic.net/domain/named.root
         dest: /var/lib/unbound/root.hints
 
-    - name: Create log dir
+    - name: Create unbound log dir
       ansible.builtin.file:
         path: /var/log/unbound
         state: directory
    
-    - name: Create log file
+    - name: Create unbound log file
       ansible.builtin.file:
         path: /var/log/unbound/unbound.log
         state: touch
@@ -110,7 +109,7 @@ This is the playbook I used. It might not be very portable, but it works perfect
         name: systemd-sysctl
         state: restarted
 ```
-Here is the unbound pi-hole.conf file:
+Here is the unbound pi-hole.conf file that Unbound will use. You can find this in the PiHole Docs:
 ```yaml
 server:
     # If no logfile is specified, syslog is used
@@ -187,5 +186,35 @@ server:
     private-address: 255.255.255.255/32
     private-address: 2001:db8::/32
 ```
-After running the playbook unbound will be installed and running. 
+You can read about the setting in man pages and unbound example docs. Run these commands to see:
+```shell
+$ dpkg -L unbound # List files installed to your system from unbound
+$ /usr/share/doc/unbound/examples/unbound.conf # See config examples with comments
+```
 
+After running the playbook unbound will be installed and running. 
+```shell
+$ dig pi-hole.net @127.0.0.1 -p 5335 # test that it's operational
+```
+
+You can test DNSSEC validation using
+```shell
+$ dig fail01.dnssec.works @127.0.0.1 -p 5335
+
+$ dig +ad dnssec.works @127.0.0.1 -p 5335
+```
+
+The first command should give a status report of "SERVFAIL" and no IP address.
+<p align="center"><img alt="DNS" src="Pi/digfail.png" height="auto" width="800"></p>
+
+The second should give "NOERROR" plus an IP address in addition to a "ad" in the "flags:" section. The "ad" signifies (Authentic Data), indicating the DNS response has been authenticated and validated using DNSSEC.
+<p align="center"><img alt="DNS" src="Pi/digpass.png" height="auto" width="800"></p>
+
+## Troubleshooting
+Initially I could not get DNSSEC working. It kept saying my key wasn't secure and so I generated another key. It still continued to fail. I already had a new router coming in that same day to replace my ISP's hardware and after I installed it I tried again. I had the same error. So I figured i'd uninstall and start fresh. I then re-installed everything again and this time it worked without any additional steps. I saw online I wasn't the only peson with the issue, but didn't see anyone with a fix. So go buy a new router.... kidding  
+```shell
+# autoremove is used to remove packages that were automatically installed to satisfy dependencies
+# Removing a package removes all packaged data, but leaves usually small (modified) user configuration files behind, in case the remove was an accident. 
+# On the other hand you can get rid of these leftovers by calling purge even on already removed packages
+$ sudo apt purge --autoremove unbound
+```
