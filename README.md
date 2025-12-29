@@ -11,7 +11,7 @@ Unbound is a validating, recursive, caching DNS resolver focused on security, pr
 Ansible is an open-source automation and configuration management tool used to manage systems, deploy applications, and enforce consistent configurations across multiple machines. It uses simple, human-readable YAML files called playbooks and operates over SSH without requiring agents on managed nodes.
 
 ## Install PiHole
-Make sure the servers you are using are set to a static IP. Use the DHCP setting of router or user nmtui/nmcli if using NetworkManager.
+***Make sure the servers you are using are set to a static IP. Use the DHCP setting of router or user nmtui/nmcli if using NetworkManager.***
 
 [PiHole Install Docs](https://docs.pi-hole.net/main/basic-install/)
 
