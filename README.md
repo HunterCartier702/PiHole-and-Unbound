@@ -1,7 +1,7 @@
 # PiHole-and-Unbound Install on Debian with the help of Ansible
 I will be installing PiHole and Unbound on two of my Debian servers. One primary and one secondary in case of failure. I do not want to end up like Cloudflare... haha kidding. I will use Ansible so that I don't have to go in manually on both servers for the Unbound configuration. I can knock them both out at once.
 
-<p align="center"><img alt="DNS" src="Pi/pideb.png" height="auto" width="800"></p>
+<p align="center"><img alt="DNS" src="Pi/debpi.png" height="auto" width="800"></p>
 
 ## PiHole
 Pi-hole is a network-wide ad-blocking and privacy tool that works by acting as a DNS sinkhole for your devices. Instead of installing ad blockers on each individual device, Pi-hole runs on a server and filters DNS requests for the entire network, blocking ads, trackers, and malicious domains before they ever reach your devices.
