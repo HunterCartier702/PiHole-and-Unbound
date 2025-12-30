@@ -41,7 +41,7 @@ $ dig @PI-HOLE_IP_ADDRESS www.google.com
 PiHole is now installed and it's that simple. You can leave off here as the rest is optional. 
 
 ## Install Unbound
-Installing Unbound adds a bit more complexity, but is well worth it especially since you will learn more by doing more. I read through the documentation on PiHole of Unbound (link below) and realized it's not too bad to setup. I then started creating my Ansible playbook while I read through the documentation as it made it much easier to just run the one Ansible command versus manually going in to each Debian server and doing all the configurations one by one. 
+Installing Unbound adds a bit more complexity, but it is well worth it especially since you will learn more by doing more. I read through the documentation on PiHole of Unbound (link below) and realized it's not too bad to setup. I then started creating my Ansible playbook as I read through the documentation. It made it much easier to run just one Ansible command versus manually going in to each Debian server and doing all the configurations one by one. 
 
 [Unbound Install Docs](https://docs.pi-hole.net/guides/dns/unbound/)
 
