@@ -188,7 +188,7 @@ server:
     private-address: 255.255.255.255/32
     private-address: 2001:db8::/32
 ```
-You can read about the setting in man pages and unbound example docs. Run these commands to see:
+You can read about the settings in man pages and unbound example docs. Run the dpkg command to see all files installed with Unboud. You will see the "examples" config in the output:
 ```shell
 $ dpkg -L unbound # List files installed to your system from unbound
 $ /usr/share/doc/unbound/examples/unbound.conf # See config examples with comments
@@ -213,7 +213,7 @@ The second should give "NOERROR" plus an IP address in addition to a "ad" in the
 <p align="center"><img alt="DNS" src="Pi/digpass.png" height="auto" width="800"></p>
 
 ## Troubleshooting
-Initially I could not get DNSSEC working. It kept saying my key wasn't secure and so I generated another key. It still continued to fail. I already had a new router coming in that same day to replace my ISP's hardware and after I installed it I tried again. I had the same error. So I figured i'd uninstall and start fresh. I then re-installed everything again and this time it worked without any additional steps. I saw online I wasn't the only peson with the issue, but didn't see anyone with a fix. So go buy a new router.... kidding  
+Initially I could not get DNSSEC working. It kept saying my key wasn't secure and so I generated another key. It still continued to fail. I already had a new router coming in that same day to replace my ISP's hardware and after I installed it I tried again. I had the same error. So I figured i'd uninstall and start fresh. I then re-installed everything again and this time it worked without any additional steps. I saw online I wasn't the only peson with the issue, but didn't see anyone with a fix. So go buy a new router if needed.... kidding  
 ```shell
 # autoremove is used to remove packages that were automatically installed to satisfy dependencies
 # Removing a package removes all packaged data, but leaves usually small (modified) user configuration files behind, in case the remove was an accident. 
