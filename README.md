@@ -188,7 +188,7 @@ server:
     private-address: 255.255.255.255/32
     private-address: 2001:db8::/32
 ```
-You can read about the settings in man pages and unbound example docs. Run the dpkg command to see all files installed with Unboud. You will see the "examples" config in the output:
+You can read about the settings in man pages and unbound example docs. Run the dpkg command to see all files installed with Unbound. You will see the "examples" config in the output:
 ```shell
 $ dpkg -L unbound # List files installed to your system from unbound
 $ /usr/share/doc/unbound/examples/unbound.conf # See config examples with comments
